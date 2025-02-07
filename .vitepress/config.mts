@@ -31,7 +31,7 @@ export default defineConfig({
   markdown: {
     config: (md) => {
       md.use(optimizeImages({
-        quality: 90
+        quality: 90,
       }))
     }
   }
