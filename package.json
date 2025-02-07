@@ -29,5 +29,11 @@
     "node": ">=14.0.0"
   },
   "packageManager": "pnpm@9.12.2",
-  "repository": "unlocomqx/vitepress-plugin-image-optimize"
+  "repository": "unlocomqx/vitepress-plugin-image-optimize",
+  "keywords": [
+    "vitepress",
+    "plugin",
+    "image",
+    "optimize"
+  ]
 }
