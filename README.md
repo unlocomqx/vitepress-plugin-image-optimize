@@ -1,0 +1,1 @@
+# vitepress-plugin-image-optimize
