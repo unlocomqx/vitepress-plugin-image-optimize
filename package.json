@@ -13,9 +13,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.13.1",
     "image-size": "^1.2.0",
     "markdown-it": "^14.1.0",
+    "sharp": "^0.33.5",
     "vite": "^6.1.0",
     "vitepress": "^2.0.0-alpha.2"
   }
