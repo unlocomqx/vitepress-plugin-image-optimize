@@ -11,7 +11,7 @@ export type OptimizeImagesOptions = {
 
 export const optimizeImages: (user_options?: OptimizeImagesOptions) => PluginWithOptions = (user_options = {}) => {
   const options = Object.assign({
-    quality: 80
+    quality: 90
   }, user_options)
 
   const {quality} = options
