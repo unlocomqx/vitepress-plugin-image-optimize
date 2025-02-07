@@ -2,7 +2,6 @@
   "name": "vitepress-plugin-image-optimize",
   "version": "1.0.4",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vitepress dev",
@@ -12,7 +11,8 @@
   "files": [
     "src"
   ],
-  "man": "src/index.js",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "keywords": [
     "vitepress",
     "plugin",
