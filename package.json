@@ -9,6 +9,10 @@
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
+  "files": [
+    "src"
+  ],
+  "man": "src/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
