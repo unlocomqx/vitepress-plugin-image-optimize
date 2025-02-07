@@ -33,3 +33,7 @@ export default defineConfig({
 To mark an image as 2x, add @2x to its name. For example, `my-image-@2x.png`.
 
 The plugin will make a smaller version of the image and show it on devices with a smaller screen resolution.
+
+## Contributing
+
+It's most welcome. Please open an issue or a pull request.
