@@ -1,6 +1,6 @@
 {
   "name": "vitepress-plugin-image-optimize",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,12 @@
     "src"
   ],
   "man": "src/index.js",
-  "keywords": [],
+  "keywords": [
+    "vitepress",
+    "plugin",
+    "image",
+    "optimize"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -29,11 +34,5 @@
     "node": ">=14.0.0"
   },
   "packageManager": "pnpm@9.12.2",
-  "repository": "unlocomqx/vitepress-plugin-image-optimize",
-  "keywords": [
-    "vitepress",
-    "plugin",
-    "image",
-    "optimize"
-  ]
+  "repository": "unlocomqx/vitepress-plugin-image-optimize"
 }
