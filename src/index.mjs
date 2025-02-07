@@ -92,16 +92,16 @@ export const optimizeImages = (user_options = {}) => {
             }
 
             const img_tag = `
-        <img 
-          src="${scale === 1 ? dist_webp.replace(public_path, '') : dist_webp_1x.replace(public_path, '')}" 
-          ${scale === 2 ? `srcset="${dist_webp_1x.replace(public_path, '')} 1x, ${dist_webp.replace(public_path, '')} 2x"` : ''}
-          alt="${img_alt}" 
-          title="${img_title}" 
-          width="${width}" 
-          height="${height}" 
-          style="width: ${style_width}" 
-        />
-      `
+                <img 
+                  src="${scale === 1 ? dist_webp.replace(public_path, '') : dist_webp_1x.replace(public_path, '')}" 
+                  ${scale === 2 ? `srcset="${dist_webp_1x.replace(public_path, '')} 1x, ${dist_webp.replace(public_path, '')} 2x"` : ''}
+                  alt="${img_alt}" 
+                  title="${img_title}" 
+                  width="${width}" 
+                  height="${height}" 
+                  style="width: ${style_width}" 
+                />
+              `
 
             return img_tag
         }
