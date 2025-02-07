@@ -22,6 +22,7 @@ export default defineConfig({
   markdown: {
     config: (md) => {
       md.use(optimizeImages({
+        srcDir: "docs", // Default: "docs"
         quality: 90 // Default: 90
       }))
     }

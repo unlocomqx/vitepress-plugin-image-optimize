@@ -1,5 +1,5 @@
 import {defineConfig} from 'vitepress'
-import {optimizeImages} from "../src"
+import {optimizeImages} from "../../src/index.mjs"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -31,6 +31,7 @@ export default defineConfig({
   markdown: {
     config: (md) => {
       md.use(optimizeImages({
+        srcDir: 'docs',
         quality: 90,
       }))
     }

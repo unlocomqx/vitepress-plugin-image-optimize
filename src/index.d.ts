@@ -1,5 +1,6 @@
 declare module 'vitepress-plugin-image-optimize' {
   type ImageOptimizeOptions = {
+    srcDir: string
     quality: number
   }
 
