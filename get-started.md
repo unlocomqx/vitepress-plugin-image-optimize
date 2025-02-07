@@ -1,6 +1,4 @@
-# vitepress-plugin-image-optimize
-
-A plugin to convert and resize images in VitePress.
+# Get started
 
 ## Installation
 

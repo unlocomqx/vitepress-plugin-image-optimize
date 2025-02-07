@@ -5,14 +5,13 @@ layout: home
 hero:
   name: "VitePress Image Optimization"
   text: "A plugin to optimize images on a VitePress site"
-  tagline: My great project tagline
   actions:
     - theme: brand
+      text: Get started
+      link: /get-started
+    - theme: alt
       text: Images Examples
       link: /images-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
 
 features:
   - title: Feature A
