@@ -5,7 +5,17 @@ import * as fs from "node:fs"
 import sharp from 'sharp'
 import {imageSize} from 'image-size'
 
-export const optimizeImages: () => PluginWithOptions = () => {
+export type OptimizeImagesOptions = {
+  quality?: number
+}
+
+export const optimizeImages: (user_options?: OptimizeImagesOptions) => PluginWithOptions = (user_options = {}) => {
+  const options = Object.assign({
+    quality: 80
+  }, user_options)
+
+  const {quality} = options
+
   return (md: MarkdownIt) => {
     const imageRule = md.renderer.rules.image!
 
@@ -45,22 +55,30 @@ export const optimizeImages: () => PluginWithOptions = () => {
       fs.mkdirSync(dist, {recursive: true})
 
       const mtime = fs.statSync(img_path).mtime
-      const dist_webp = `${path.join(dist, img_src)}-${mtime.getTime()}.webp`
+      const dist_webp = `${path.join(dist, img_src)}-${quality}-${mtime.getTime()}.webp`
 
       if (!fs.existsSync(dist_webp)) {
+        // hacky way to make the file available immediately
+        // md.renderer.rules.image won't work with async
+        fs.copyFileSync(img_path, dist_webp)
+        // noinspection JSIgnoredPromiseFromCall
         sharp(img_path)
-          .webp({quality: 80})
+          .webp({quality})
           .toFile(dist_webp)
       }
 
       const dist_webp_1x = dist_webp.replace('@2x', '')
       if (scale === 2) {
         if (!fs.existsSync(dist_webp_1x)) {
+          // hacky way to make the file available immediately
+          // md.renderer.rules.image won't work with async
+          fs.copyFileSync(dist_webp, dist_webp_1x)
+          // noinspection JSIgnoredPromiseFromCall
           sharp(img_path)
             .resize({
               width: width / 2,
             })
-            .webp({quality: 80})
+            .webp({quality})
             .toFile(dist_webp_1x)
         }
       }
