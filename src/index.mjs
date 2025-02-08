@@ -15,6 +15,22 @@ export const optimizeImages = (user_options = {}) => {
     const q = new Queue({results: []})
     q.autostart = true
 
+    q.addEventListener('success', e => {
+        const [detail] = e.detail.result;
+        console.info(detail.message)
+    })
+
+    function success(img_path, img_src, cb) {
+        return (err, res) => {
+            if (res) {
+                const original_size = fs.statSync(img_path).size;
+                const smaller = 100 - (res.size / original_size) * 100;
+                res.message = `Converted ${img_src} (${smaller.toFixed(2)}% smaller)`;
+            }
+            cb(err, res)
+        };
+    }
+
     /**
      * @type {import('markdown-it').MarkdownIt}
      */
@@ -22,7 +38,6 @@ export const optimizeImages = (user_options = {}) => {
         const imageRule = md.renderer.rules.image;
 
         md.renderer.rules.image = (tokens, idx, options, env, self) => {
-            console.log('rerun')
             const token = tokens[idx];
             let img_alt = md.utils.escapeHtml(token.content);
             let img_src = md.utils.escapeHtml(token.attrGet('src') || '');
@@ -68,7 +83,7 @@ export const optimizeImages = (user_options = {}) => {
                 q.push((cb) => {
                     sharp(img_path)
                         .webp({quality})
-                        .toFile(dist_webp, cb)
+                        .toFile(dist_webp, success(img_path, img_src, cb))
                 });
             }
 
@@ -85,7 +100,7 @@ export const optimizeImages = (user_options = {}) => {
                                 width: Math.ceil(width / 2)
                             })
                             .webp({quality})
-                            .toFile(dist_webp_1x, cb)
+                            .toFile(dist_webp_1x, success(img_path, img_src, cb))
                     });
                 }
             }

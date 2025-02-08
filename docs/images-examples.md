@@ -11,3 +11,5 @@ An image that is marked as @2x
 A relative path
 
 ![Nature](./nature-0009.jpg)
+
+6
