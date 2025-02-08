@@ -2,6 +2,7 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import sharp from 'sharp';
 import {imageSize} from 'image-size';
+import Queue from 'queue'
 
 export const optimizeImages = (user_options = {}) => {
     const options = Object.assign({
@@ -11,6 +12,9 @@ export const optimizeImages = (user_options = {}) => {
 
     const {srcDir, quality} = options;
 
+    const q = new Queue({results: []})
+    q.autostart = true
+
     /**
      * @type {import('markdown-it').MarkdownIt}
      */
@@ -18,6 +22,7 @@ export const optimizeImages = (user_options = {}) => {
         const imageRule = md.renderer.rules.image;
 
         md.renderer.rules.image = (tokens, idx, options, env, self) => {
+            console.log('rerun')
             const token = tokens[idx];
             let img_alt = md.utils.escapeHtml(token.content);
             let img_src = md.utils.escapeHtml(token.attrGet('src') || '');
@@ -60,9 +65,11 @@ export const optimizeImages = (user_options = {}) => {
                 // md.renderer.rules.image won't work with async
                 fs.copyFileSync(img_path, dist_webp);
                 // noinspection JSIgnoredPromiseFromCall
-                sharp(img_path)
-                    .webp({quality})
-                    .toFile(dist_webp);
+                q.push((cb) => {
+                    sharp(img_path)
+                        .webp({quality})
+                        .toFile(dist_webp, cb)
+                });
             }
 
             const dist_webp_1x = dist_webp.replace('@2x', '');
@@ -72,12 +79,14 @@ export const optimizeImages = (user_options = {}) => {
                     // md.renderer.rules.image won't work with async
                     fs.copyFileSync(dist_webp, dist_webp_1x);
                     // noinspection JSIgnoredPromiseFromCall
-                    sharp(img_path)
-                        .resize({
-                            width: Math.ceil(width / 2)
-                        })
-                        .webp({quality})
-                        .toFile(dist_webp_1x);
+                    q.push((cb) => {
+                        sharp(img_path)
+                            .resize({
+                                width: Math.ceil(width / 2)
+                            })
+                            .webp({quality})
+                            .toFile(dist_webp_1x, cb)
+                    });
                 }
             }
 
@@ -86,7 +95,7 @@ export const optimizeImages = (user_options = {}) => {
                 style_width = `${width / 2}px;`;
             }
 
-            const img_tag = `
+            return `
                 <img 
                   src="${scale === 1 ? dist_webp.replace(public_path, '') : dist_webp_1x.replace(public_path, '')}" 
                   ${scale === 2 ? `srcset="${dist_webp_1x.replace(public_path, '')} 1x, ${dist_webp.replace(public_path, '')} 2x"` : ''}
@@ -97,8 +106,6 @@ export const optimizeImages = (user_options = {}) => {
                   style="width: ${style_width};" 
                 />
               `;
-
-            return img_tag;
         };
     };
 };

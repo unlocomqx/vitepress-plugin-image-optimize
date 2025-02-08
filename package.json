@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "image-size": "^1.2.0",
+    "queue": "^7.0.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
