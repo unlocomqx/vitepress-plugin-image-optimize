@@ -74,7 +74,7 @@ export const optimizeImages = (user_options = {}) => {
                     // noinspection JSIgnoredPromiseFromCall
                     sharp(img_path)
                         .resize({
-                            width: width / 2
+                            width: Math.ceil(width / 2)
                         })
                         .webp({quality})
                         .toFile(dist_webp_1x);
