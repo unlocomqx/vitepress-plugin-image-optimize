@@ -23,8 +23,9 @@
   "license": "ISC",
   "dependencies": {
     "image-size": "^1.2.0",
-    "sharp": "^0.33.5",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "queue": "^7.0.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
