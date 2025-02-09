@@ -16,10 +16,11 @@ q.addEventListener('success', e => {
 export const optimizeImages = (user_options = {}) => {
     const options = Object.assign({
         srcDir: 'docs',
-        quality: 90
+        quality: 90,
+        lazyLoading: false
     }, user_options);
 
-    const {srcDir, quality} = options;
+    const {srcDir, quality, lazyLoading} = options;
 
     function success(img_path, img_src, cb) {
         return (err, res) => {
@@ -121,6 +122,7 @@ export const optimizeImages = (user_options = {}) => {
                   title="${img_title}" 
                   width="${width}" 
                   height="${height}" 
+                  ${lazyLoading ? 'loading="lazy"' : ''}
                   style="width: ${style_width};" 
                 />
               `;

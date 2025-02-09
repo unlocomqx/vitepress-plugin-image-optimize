@@ -23,7 +23,8 @@ export default defineConfig({
     config: (md) => {
       md.use(optimizeImages({
         srcDir: "docs", // Default: "docs"
-        quality: 90 // Default: 90
+        quality: 90, // Default: 90
+        lazyLoading: true, // Default: false
       }))
     }
   }

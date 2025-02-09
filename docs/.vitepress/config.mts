@@ -33,6 +33,7 @@ export default defineConfig({
       md.use(optimizeImages({
         srcDir: 'docs',
         quality: 90,
+        lazyLoading: true
       }))
     }
   }
