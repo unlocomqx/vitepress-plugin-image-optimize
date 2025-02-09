@@ -1,3 +1,5 @@
+import {PluginOption} from "vite"
+
 declare module 'vitepress-plugin-image-optimize' {
   type ImageOptimizeOptions = {
     srcDir: string

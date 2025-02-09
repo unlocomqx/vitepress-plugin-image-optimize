@@ -11,6 +11,9 @@ importers:
       image-size:
         specifier: ^1.2.0
         version: 1.2.0
+      markdown-it:
+        specifier: ^14.1.0
+        version: 14.1.0
       queue:
         specifier: ^7.0.0
         version: 7.0.0
@@ -24,9 +27,6 @@ importers:
       '@types/node':
         specifier: ^22.13.1
         version: 22.13.1
-      markdown-it:
-        specifier: ^14.1.0
-        version: 14.1.0
       vite:
         specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)

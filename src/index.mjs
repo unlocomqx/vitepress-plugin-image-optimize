@@ -4,6 +4,15 @@ import sharp from 'sharp';
 import {imageSize} from 'image-size';
 import Queue from 'queue'
 
+const q = new Queue({results: []})
+q.autostart = true
+q.concurrency = 1
+
+q.addEventListener('success', e => {
+    const [detail] = e.detail.result;
+    console.info(detail.message)
+})
+
 export const optimizeImages = (user_options = {}) => {
     const options = Object.assign({
         srcDir: 'docs',
@@ -11,14 +20,6 @@ export const optimizeImages = (user_options = {}) => {
     }, user_options);
 
     const {srcDir, quality} = options;
-
-    const q = new Queue({results: []})
-    q.autostart = true
-
-    q.addEventListener('success', e => {
-        const [detail] = e.detail.result;
-        console.info(detail.message)
-    })
 
     function success(img_path, img_src, cb) {
         return (err, res) => {
@@ -75,12 +76,13 @@ export const optimizeImages = (user_options = {}) => {
             const mtime = fs.statSync(img_path).mtime;
             const dist_webp = `${path.join(dist, img_src)}-${quality}-${mtime.getTime()}.webp`;
 
-            if (!fs.existsSync(dist_webp)) {
+            if (!fs.existsSync(dist_webp) || 1) {
                 // hacky way to make the file available immediately
                 // md.renderer.rules.image won't work with async
                 fs.copyFileSync(img_path, dist_webp);
                 // noinspection JSIgnoredPromiseFromCall
                 q.push((cb) => {
+                    console.log('start 2x')
                     sharp(img_path)
                         .webp({quality})
                         .toFile(dist_webp, success(img_path, img_src, cb))
@@ -89,12 +91,13 @@ export const optimizeImages = (user_options = {}) => {
 
             const dist_webp_1x = dist_webp.replace('@2x', '');
             if (scale === 2) {
-                if (!fs.existsSync(dist_webp_1x)) {
+                if (!fs.existsSync(dist_webp_1x) || 1) {
                     // hacky way to make the file available immediately
                     // md.renderer.rules.image won't work with async
                     fs.copyFileSync(dist_webp, dist_webp_1x);
                     // noinspection JSIgnoredPromiseFromCall
                     q.push((cb) => {
+                        console.log('start 1x')
                         sharp(img_path)
                             .resize({
                                 width: Math.ceil(width / 2)
