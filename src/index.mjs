@@ -82,7 +82,7 @@ export const optimizeImages = (user_options = {}) => {
                 fs.copyFileSync(img_path, dist_webp);
                 // noinspection JSIgnoredPromiseFromCall
                 q.push((cb) => {
-                    console.log('start 2x')
+                    console.log('Image Optimizer: Converting', img_src)
                     sharp(img_path)
                         .webp({quality})
                         .toFile(dist_webp, success(img_path, img_src, cb))
@@ -97,7 +97,7 @@ export const optimizeImages = (user_options = {}) => {
                     fs.copyFileSync(dist_webp, dist_webp_1x);
                     // noinspection JSIgnoredPromiseFromCall
                     q.push((cb) => {
-                        console.log('start 1x')
+                        console.log('Image Optimizer: Converting to 1x', img_src)
                         sharp(img_path)
                             .resize({
                                 width: Math.ceil(width / 2)
