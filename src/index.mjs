@@ -77,7 +77,7 @@ export const optimizeImages = (user_options = {}) => {
             const mtime = fs.statSync(img_path).mtime;
             const dist_webp = `${path.join(dist, img_src)}-${quality}-${mtime.getTime()}.webp`;
 
-            if (!fs.existsSync(dist_webp) || 1) {
+            if (!fs.existsSync(dist_webp)) {
                 // hacky way to make the file available immediately
                 // md.renderer.rules.image won't work with async
                 fs.copyFileSync(img_path, dist_webp);
@@ -92,7 +92,7 @@ export const optimizeImages = (user_options = {}) => {
 
             const dist_webp_1x = dist_webp.replace('@2x', '');
             if (scale === 2) {
-                if (!fs.existsSync(dist_webp_1x) || 1) {
+                if (!fs.existsSync(dist_webp_1x)) {
                     // hacky way to make the file available immediately
                     // md.renderer.rules.image won't work with async
                     fs.copyFileSync(dist_webp, dist_webp_1x);
