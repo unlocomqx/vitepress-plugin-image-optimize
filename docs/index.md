@@ -5,6 +5,8 @@ layout: home
 hero:
   name: "VitePress Image Optimization"
   text: "A plugin to optimize images on a VitePress site"
+  image:
+    src: /hero.jpg
   actions:
     - theme: brand
       text: Get started
