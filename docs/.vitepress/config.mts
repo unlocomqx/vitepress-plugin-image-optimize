@@ -36,5 +36,11 @@ export default defineConfig({
         lazyLoading: true
       }))
     }
+  },
+
+  vue: {
+    template:{
+
+    }
   }
 })
