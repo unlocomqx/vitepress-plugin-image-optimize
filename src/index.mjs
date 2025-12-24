@@ -13,14 +13,24 @@ q.addEventListener('success', e => {
   console.info(detail.message)
 })
 
+/**
+ * VitePress plugin that optimizes images by converting them to WebP format
+ * @param {Object} user_options - Configuration options
+ * @param {string} [user_options.srcDir='docs'] - Source directory
+ * @param {string} [user_options.publicDir='public'] - Public directory
+ * @param {number} [user_options.quality=90] - WebP quality (0-100)
+ * @param {boolean} [user_options.lazyLoading=false] - Enable lazy loading
+ * @returns {function(import('markdown-it').MarkdownIt): void} Markdown-it plugin
+ */
 export const optimizeImages = (user_options = {}) => {
   const options = Object.assign({
     srcDir: 'docs',
+    publicDir: 'public',
     quality: 90,
     lazyLoading: false
   }, user_options);
 
-  const {srcDir, quality, lazyLoading} = options;
+  const {srcDir, publicDir, quality, lazyLoading} = options;
 
   function success(img_path, img_src, cb) {
     return (err, res) => {
@@ -48,7 +58,7 @@ export const optimizeImages = (user_options = {}) => {
         return imageRule(tokens, idx, options, env, self);
       }
 
-      const public_path = path.resolve(path.join(srcDir, 'public'));
+      const public_path = path.resolve(path.join(srcDir, publicDir));
       let img_path = path.join(public_path, img_src);
       if (img_src.startsWith('.')) {
         img_path = path.join(path.dirname(env.path), img_src);
