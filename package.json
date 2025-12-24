@@ -1,6 +1,6 @@
 {
   "name": "vitepress-plugin-image-optimize",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "A plugin to optimize images on a VitePress site",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
